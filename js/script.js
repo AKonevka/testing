@@ -15,6 +15,25 @@ let questions = [
         options: ["JS", "Python", "Javs", "C++"],
         correctAnswer: "JS"
     },
+
+    {
+        question: "Сколько месяцев в году?",
+        options: ["1", "9", "12", "5"],
+        correctAnswer: "12"
+    },
+
+    {
+        question: "Сколько лет Java Script?",
+        options: ["28", "24", "30", "29"],
+        correctAnswer: "JS"
+    },
+
+    {
+        question: "Високостные года",
+        options: ["JS", "Python", "2024", "C+"],
+        correctAnswer: "JS"
+    },
+
 ];
 
 let currentQuestion = 0; // текущий вопрос
@@ -46,13 +65,44 @@ function displayQuestion() {
         target = e.target;
         // Вызовём функцию проверки ответа и перехода к следующему вопросу: (в аргумент функции передаем текст ответа):
         nextQuestion(target.textContent)
-
-
-    })
+    }, { once: true })
 
 
 
 }
+
+// функция для перехода к следующему вопросу
+function nextQuestion(answer) {
+    // Если переднный ответ раывен корректному
+    if (answer == questions[currentQuestion].correctAnswer) {
+        // Увеличиваем на единицу количество правильных ответов
+        correctAnswers++
+    }
+    // Переходим к следующему вопросу
+    currentQuestion++
+    // если номер текущего вопроса меньше количества вопросов то отображаем следующий вопрос
+    if (currentQuestion < questions.length) {
+        displayQuestion()
+    } else {
+        displayResult()
+    }
+
+
+}
+
+// Функция отобюражения результата теста
+function displayResult() {
+    const questionElement = document.getElementById("question"); // Блок с вопросом
+    const optionsElement = document.getElementById("options"); // Блок с вариантами ответов
+    const resultElement = document.getElementById("result"); // Блок для отображения результатов
+    questionElement.style.display = "none";
+    optionsElement.style.display = "none";
+    resultElement.textContent = `Правильных ответов: ${correctAnswers} из ${questions.length}`
+}
+
+
 displayQuestion();
+
+
 
 
