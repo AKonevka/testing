@@ -6,14 +6,14 @@ let questions = [
         correctAnswer: "JS"
     },
     {
-        question: "Какой язык программирования вы изучаете",
-        options: ["JS", "Python", "Javs", "C++"],
-        correctAnswer: "JS"
+        question: "В каком году изобрели первый компьютер",
+        options: ["1927", "1930", "1936", "2000"],
+        correctAnswer: "1927"
     },
     {
-        question: "Какой язык программирования вы изучаете",
-        options: ["JS", "Python", "Javs", "C++"],
-        correctAnswer: "JS"
+        question: "В каком году была изобретена машина Тьюринга",
+        options: ["1930", "1927", "2000", "1936"],
+        correctAnswer: "1936"
     },
 
     {
@@ -25,16 +25,36 @@ let questions = [
     {
         question: "Сколько лет Java Script?",
         options: ["28", "24", "30", "29"],
-        correctAnswer: "JS"
+        correctAnswer: "29"
     },
 
     {
-        question: "Високостные года",
-        options: ["JS", "Python", "2024", "C+"],
-        correctAnswer: "JS"
+        question: "Високостный год",
+        options: ["2014", "2015", "2024", "2023"],
+        correctAnswer: "2024"
     },
 
 ];
+
+// ввод имени
+
+let blockName = document.getElementById('name');
+let nameInput = document.getElementById('nameInput');
+let buttonOk = document.getElementById('btn');
+
+let name
+console.log(nameInput.value)
+
+buttonOk.addEventListener('click', () => {
+    name = nameInput.value;
+    blockName.style = `display:none;`
+})
+
+
+
+
+
+
 
 let currentQuestion = 0; // текущий вопрос
 let = correctAnswers = 0; // Количество правильных ответов
@@ -90,6 +110,22 @@ function nextQuestion(answer) {
 
 }
 
+function estimation() {
+    let num = correctAnswers / questions.length * 100;
+    if (num > 89) {
+        num = 5
+    } else if (num > 74) {
+        num = 4
+    } else if (num > 49) {
+        num = 3
+    } else {
+        num = 2
+    }
+    return num;
+
+    //console.log(questions.length + "/" + correctAnswers + "*" + "100 =" + estimatio)
+}
+
 // Функция отобюражения результата теста
 function displayResult() {
     const questionElement = document.getElementById("question"); // Блок с вопросом
@@ -97,7 +133,8 @@ function displayResult() {
     const resultElement = document.getElementById("result"); // Блок для отображения результатов
     questionElement.style.display = "none";
     optionsElement.style.display = "none";
-    resultElement.textContent = `Правильных ответов: ${correctAnswers} из ${questions.length}`
+    resultElement.textContent = `${name}. Ваша оценка ${estimation()} (правильных ответов ${correctAnswers} из ${questions.length})`
+    estimation();
 }
 
 
