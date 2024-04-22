@@ -1,40 +1,38 @@
 // массив с вопросами, вариантами ответов и правильными ответами
 let questions = [
     {
-        question: "Какой язык программирования вы изучаете",
+        question: "Какой язык программирования вы изучаете?",
         options: ["JS", "Python", "Javs", "C++"],
         correctAnswer: "JS"
     },
     {
-        question: "В каком году изобрели первый компьютер",
+        question: "В каком году изобрели первый компьютер?",
         options: ["1927", "1930", "1936", "2000"],
         correctAnswer: "1927"
     },
     {
-        question: "В каком году была изобретена машина Тьюринга",
+        question: "В каком году была изобретена машина Тьюринга?",
         options: ["1930", "1927", "2000", "1936"],
         correctAnswer: "1936"
     },
-
     {
         question: "Сколько месяцев в году?",
         options: ["1", "9", "12", "5"],
         correctAnswer: "12"
     },
-
     {
         question: "Сколько лет Java Script?",
         options: ["28", "24", "30", "29"],
         correctAnswer: "29"
     },
-
     {
-        question: "Високостный год",
+        question: "Високостный год:",
         options: ["2014", "2015", "2024", "2023"],
         correctAnswer: "2024"
     },
-
 ];
+
+let wrongAnswers = []
 
 // ввод имени
 
@@ -97,6 +95,9 @@ function nextQuestion(answer) {
     if (answer == questions[currentQuestion].correctAnswer) {
         // Увеличиваем на единицу количество правильных ответов
         correctAnswers++
+
+    } else {
+        wrongAnswers[currentQuestion] = questions[currentQuestion].question;
     }
     // Переходим к следующему вопросу
     currentQuestion++
@@ -126,14 +127,38 @@ function estimation() {
     //console.log(questions.length + "/" + correctAnswers + "*" + "100 =" + estimatio)
 }
 
+// функция для вывода неправильных ответов
+
+function wrongAnswersf() {
+    let textwrongAnswers = "";
+    wrongAnswers.forEach(function (item) {
+        textwrongAnswers += item
+        textwrongAnswers += "<br>"
+    });
+
+    return textwrongAnswers
+}
+
+let sdf = ``;
+
 // Функция отобюражения результата теста
 function displayResult() {
     const questionElement = document.getElementById("question"); // Блок с вопросом
     const optionsElement = document.getElementById("options"); // Блок с вариантами ответов
     const resultElement = document.getElementById("result"); // Блок для отображения результатов
+    let percent = correctAnswers / questions.length * 100;
     questionElement.style.display = "none";
     optionsElement.style.display = "none";
-    resultElement.textContent = `${name}. Ваша оценка ${estimation()} (правильных ответов ${correctAnswers} из ${questions.length})`
+    let wrongAnswersDiv = document.createElement('div');
+    let answerDiv = document.createElement('div');
+    resultElement.append(wrongAnswersDiv);
+    resultElement.append(answerDiv);
+    resultElement.innerHTML = `${name}. Ваша оценка ${estimation()}.<br>
+    Правильных ответов ${correctAnswers} из ${questions.length} (${percent.toFixed(1)}%) <br>
+    Вопросы в которых вы ошиблись: <br>
+    ${wrongAnswersf()}`;
+
+
     estimation();
 }
 

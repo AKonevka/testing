@@ -72,3 +72,7 @@ body {
     border-radius: 5px;
     height: 30px;
 }
+
+.result {
+    text-align: center;
+}
