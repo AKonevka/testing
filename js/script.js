@@ -1,36 +1,44 @@
 // массив с вопросами, вариантами ответов и правильными ответами
 let questions = [
     {
-        question: "Какой язык программирования вы изучаете?",
-        options: ["JS", "Python", "Javs", "C++"],
-        correctAnswer: "JS"
+        view: "test",
+        question: "С какого по какой год шла Великая Отечественная Война?",
+        options: ["1939 г. - 1945 г.", "1941 г. - 1945 г.", "1954 г. - 1989 г.", "1914 г. - 1918 г."],
+        correctAnswer: "1941 г. - 1945 г."
     },
     {
-        question: "В каком году изобрели первый компьютер?",
-        options: ["1927", "1930", "1936", "2000"],
-        correctAnswer: "1927"
+        view: "test",
+        question: "Какого числа произошло вторжение Германии в СССР?",
+        options: ["22 июня 1941 г.", "22 июля 1941 г.", "24 июня 1941 г.", "22 июня 1939 г."],
+        correctAnswer: "22 июня 1941 г."
     },
     {
-        question: "В каком году была изобретена машина Тьюринга?",
-        options: ["1930", "1927", "2000", "1936"],
-        correctAnswer: "1936"
+        view: "text",
+        question: "Фамилия человека на изображении",
+        image: "img/textquestion1.jpg",
+        correctAnswer: "Горшков"
     },
     {
-        question: "Сколько месяцев в году?",
-        options: ["1", "9", "12", "5"],
-        correctAnswer: "12"
+        view: "test",
+        question: "В каком году впервые с распада СССР прошел парад в день 9 мая?",
+        options: ["1994 г.", "1985 г.", "1995 г.", "2000 г."],
+        correctAnswer: "1995 г."
     },
     {
-        question: "Сколько лет Java Script?",
-        options: ["28", "24", "30", "29"],
-        correctAnswer: "29"
+        view: "test",
+        question: "Сколько продолжалась блокада Ленинграда?",
+        options: ["100 дней", "872 дня", "886 дня", "988 дня"],
+        correctAnswer: "872 дня"
     },
     {
-        question: "Високостный год:",
-        options: ["2014", "2015", "2024", "2023"],
-        correctAnswer: "2024"
+        view: "test",
+        question: "В каком году 9 мая стал выходным днем? ",
+        options: ["1980", "1995", "2003", "1946"],
+        correctAnswer: "1965"
     },
 ];
+
+// таблица для текстовых вопросов
 
 let wrongAnswers = []
 
@@ -41,8 +49,9 @@ let nameInput = document.getElementById('nameInput');
 let buttonOk = document.getElementById('btn');
 
 let name
+/*
 console.log(nameInput.value)
-
+*/
 buttonOk.addEventListener('click', () => {
     name = nameInput.value;
     blockName.style = `display:none;`
@@ -58,7 +67,7 @@ let currentQuestion = 0; // текущий вопрос
 let = correctAnswers = 0; // Количество правильных ответов
 
 // Функция для отображения текущего вопроса и вариантов ответов
-function displayQuestion() {
+function displayQuestiontest() {
     let questionElement = document.getElementById("question"); //Получим блок куда размещать вопрос
     questionElement.textContent = `Вопрос ${currentQuestion + 1}: ${questions[currentQuestion].question}`
     // Получим блоки кнопок
@@ -84,10 +93,43 @@ function displayQuestion() {
         // Вызовём функцию проверки ответа и перехода к следующему вопросу: (в аргумент функции передаем текст ответа):
         nextQuestion(target.textContent)
     }, { once: true })
+}
 
+// функция для отображения вопрса с текстом
+function displayQuestiontext() {
+    let questionElement = document.getElementById("question"); //Получим блок куда размещать вопрос
+    questionElement.textContent = `Вопрос ${currentQuestion + 1}: ${questions[currentQuestion].question}`
+    // Получим блоки кнопок
+    let optionsElement = document.getElementById("options");
+    // Очистим блок с кнопками 
+    optionsElement.innerHTML = "";
+    optionsElement.style.display = "block";
+    // Массив ответов
+    let optionsArray = questions[currentQuestion].options;
+    // создать input для ввода ответа
+    let input = document.createElement("input");
+    optionsElement.appendChild(input);
+    input.classList.add("questionInput");
+
+    // создать кнопку для подтверждения ответа
+    let button = document.createElement("button");
+    optionsElement.appendChild(button);
+    button.classList.add("btn");
+    button.textContent = "OK";
+
+    // создать img куда добавим изображение
+    let img = document.createElement("img");
+    img.src = questions[currentQuestion].image;
+    img.classList.add("img");
+    optionsElement.appendChild(img);
+
+    button.addEventListener('click', (e) => {
+        nextQuestion(input.value)
+    })
 
 
 }
+
 
 // функция для перехода к следующему вопросу
 function nextQuestion(answer) {
@@ -101,9 +143,16 @@ function nextQuestion(answer) {
     }
     // Переходим к следующему вопросу
     currentQuestion++
+
     // если номер текущего вопроса меньше количества вопросов то отображаем следующий вопрос
     if (currentQuestion < questions.length) {
-        displayQuestion()
+        if (questions[currentQuestion].view == "text") {
+            displayQuestiontext();
+        } else {
+            displayQuestiontest()
+        }
+        //displayQuestiontest()
+
     } else {
         displayResult()
     }
@@ -163,7 +212,7 @@ function displayResult() {
 }
 
 
-displayQuestion();
+displayQuestiontest();
 
 
 
