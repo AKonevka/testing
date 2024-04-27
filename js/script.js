@@ -14,7 +14,7 @@ let questions = [
     },
     {
         view: "text",
-        question: "Фамилия человека на изображении",
+        question: "Фамилия героя СССР на изображении",
         image: "img/textquestion1.jpg",
         correctAnswer: "Горшков"
     },
@@ -36,6 +36,13 @@ let questions = [
         options: ["1980", "1995", "2003", "1946"],
         correctAnswer: "1965"
     },
+    {
+        view: "text",
+        question: "Название здания, на крышу которого был поставлен флаг СССР",
+        image: "img/textquestion2.jpg",
+        correctAnswer: "Рейхстаг"
+    },
+
 ];
 
 // таблица для текстовых вопросов
@@ -72,6 +79,7 @@ function displayQuestiontest() {
     questionElement.textContent = `Вопрос ${currentQuestion + 1}: ${questions[currentQuestion].question}`
     // Получим блоки кнопок
     let optionsElement = document.getElementById("options");
+    optionsElement.style.flexDirection = "row";
     // Очистим блок с кнопками 
     optionsElement.innerHTML = "";
 
@@ -103,7 +111,7 @@ function displayQuestiontext() {
     let optionsElement = document.getElementById("options");
     // Очистим блок с кнопками 
     optionsElement.innerHTML = "";
-    optionsElement.style.display = "block";
+    optionsElement.style.flexDirection = "column";
     // Массив ответов
     let optionsArray = questions[currentQuestion].options;
     // создать input для ввода ответа
@@ -114,7 +122,7 @@ function displayQuestiontext() {
     // создать кнопку для подтверждения ответа
     let button = document.createElement("button");
     optionsElement.appendChild(button);
-    button.classList.add("btn");
+    button.classList.add("textBtn");
     button.textContent = "OK";
 
     // создать img куда добавим изображение
@@ -137,9 +145,9 @@ function nextQuestion(answer) {
     if (answer == questions[currentQuestion].correctAnswer) {
         // Увеличиваем на единицу количество правильных ответов
         correctAnswers++
-
     } else {
         wrongAnswers[currentQuestion] = questions[currentQuestion].question;
+
     }
     // Переходим к следующему вопросу
     currentQuestion++
@@ -181,8 +189,13 @@ function estimation() {
 function wrongAnswersf() {
     let textwrongAnswers = "";
     wrongAnswers.forEach(function (item) {
-        textwrongAnswers += item
-        textwrongAnswers += "<br>"
+        const resultElement = document.getElementById("result");
+        let wrongAnswersDiv = document.createElement('div');
+
+        resultElement.append(wrongAnswersDiv);
+        wrongAnswersDiv.textContent = item;
+        /*textwrongAnswers += item
+        textwrongAnswers += "<br>"*/
     });
 
     return textwrongAnswers
@@ -198,14 +211,16 @@ function displayResult() {
     let percent = correctAnswers / questions.length * 100;
     questionElement.style.display = "none";
     optionsElement.style.display = "none";
-    let wrongAnswersDiv = document.createElement('div');
+
     let answerDiv = document.createElement('div');
-    resultElement.append(wrongAnswersDiv);
+
     resultElement.append(answerDiv);
     resultElement.innerHTML = `${name}. Ваша оценка ${estimation()}.<br>
-    Правильных ответов ${correctAnswers} из ${questions.length} (${percent.toFixed(1)}%) <br>
+    Правильных ответов ${correctAnswers} из ${questions.length} (${percent.toFixed(1)}%)0`;
+    wrongAnswersf();
+    /*<br>
     Вопросы в которых вы ошиблись: <br>
-    ${wrongAnswersf()}`;
+    ${wrongAnswersf()}`;*/
 
 
     estimation();

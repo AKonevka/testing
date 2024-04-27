@@ -14,6 +14,7 @@ body {
 
 .wrapper {
     min-height: 100%;
+    background: url(/img/bg.jpg) no-repeat center / cover;
 }
 
 .title {
@@ -28,8 +29,8 @@ body {
 
 
 .quiz-container {
-    background-color: rgb(240, 255, 29);
-    color: rgb(177, 113, 29);
+    background-color: rgba(17, 41, 40, 0.479);
+    color: rgb(21, 23, 190);
     border-radius: 15px;
     padding: 0 10px 0 10px;
 }
@@ -40,15 +41,15 @@ body {
     justify-content: space-around;
     width: 300px;
     height: 40px;
-    background-color: rgb(160, 189, 54);
+    background-color: rgb(184, 7, 31);
     border-radius: 5px;
     align-items: center;
 
 }
 
 .btn {
-    height: 30px;
-    background-color: orange;
+    height: 38px;
+    background-color: rgba(202, 198, 198, 0.925);
     border-radius: 10px;
 }
 
@@ -76,4 +77,34 @@ body {
 
 .result {
     text-align: center;
+}
+
+.questionInput {
+    border: solid 2px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.textBtn {
+    width: 50px;
+    height: 38px;
+    background-color: rgba(202, 198, 198, 0.925);
+    border-radius: 10px;
+}
+
+.img {
+    width: 300px;
+    border: rgb(87, 100, 93) solid;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.question {
+    margin: 0 5px 10px 5px;
 }
